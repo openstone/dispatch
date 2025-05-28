@@ -1,5 +1,7 @@
 FROM registry.cn-shanghai.aliyuncs.com/openstone/python:3.11.10-slim-bullseye AS sdist
 
+RUN sed -i "s@http://\(deb\|security\).debian.org@https://mirrors.aliyun.com@g" /etc/apt/sources.list
+
 LABEL maintainer="oss@netflix.com"
 LABEL org.opencontainers.image.title="Dispatch PyPI Wheel"
 LABEL org.opencontainers.image.description="PyPI Wheel Builder for Dispatch"
