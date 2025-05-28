@@ -1,4 +1,4 @@
-FROM python:3.11.10-slim-bullseye as sdist
+FROM registry.cn-shanghai.aliyuncs.com/openstone/python:3.11.10-slim-bullseye AS sdist
 
 LABEL maintainer="oss@netflix.com"
 LABEL org.opencontainers.image.title="Dispatch PyPI Wheel"
@@ -56,7 +56,9 @@ RUN YARN_CACHE_FOLDER="$(mktemp -d)" \
   && mv /usr/src/dispatch/dist /dist
 
 # This is the image to be run
-FROM python:3.11.10-slim-bullseye
+FROM registry.cn-shanghai.aliyuncs.com/openstone/python:3.11.10-slim-bullseye
+
+RUN sed -i "s@http://\(deb\|security\).debian.org@https://mirrors.aliyun.com@g" /etc/apt/sources.list
 
 LABEL maintainer="oss@dispatch.io"
 LABEL org.opencontainers.image.title="Dispatch"
